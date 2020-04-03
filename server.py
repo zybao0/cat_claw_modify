@@ -45,53 +45,13 @@ class WSGIServer(object):
             # client_socket.close()
  
     def handleRequest(self, client_socket):
-        # "用一个新的进程，为一个客户端进行服务"
-        # # recv_data = client_socket.recv(1024).decode('utf-8')
-        # recv_data = client_socket.recv(1024).decode()
-        # print("______________recv_data______________")
-        # print(recv_data)
-        # print("______________recv_data_finish______________")
-        # print("______________recv_data_line______________")
-        # requestHeaderLines = recv_data.splitlines()
-        # if requestHeaderLines:
-        #     for line in requestHeaderLines:
-        #         print(line)
-        # print("______________recv_data_line_finish______________")
- 
-        # request_line = requestHeaderLines[0]
-        # get_file_name = re.match("[^/]+(/[^ ]*)", request_line).group(1)
-        # print("file name is ===>%s" % get_file_name) # for test
- 
-        # if get_file_name == "/":
-        #     get_file_name = DOCUMENTS_ROOT + "/index.html"
-        # else:
-        #     get_file_name = DOCUMENTS_ROOT + get_file_name
- 
-        # print("file name is ===2>%s" % get_file_name) # for test
- 
-        # try:
-        #     f = open(get_file_name, "rb")
-        # except IOError:
-        #     response_header = "HTTP/1.1 404 not found\r\n"
-        #     response_header += "\r\n"
-        #     response_body = "====sorry ,file not found===="
-        # else:
-        #     response_header = "HTTP/1.1 200 OK\r\n"
-        #     response_header += "\r\n"
-        #     response_body = f.read()
-        #     f.close()
-        # finally:
-        #     client_socket.send(response_header.encode('utf-8'))
-        #     client_socket.send(response_body)
-        #     client_socket.close()
+        "用一个新的进程，为一个客户端进行服务"
         recv_data = client_socket.recv(1024).decode('utf-8')
         client_socket.close()
         url=trans(re.search("down_url=([^&]*)",recv_data).group(1));
         path=trans(re.search("path=([^&]*)",recv_data).group(1));
         print(url)
         print(path)
-        # url=(base64.b64decode(url)).decode('utf-8')
-        # path=(base64.b64decode(path)).decode('utf-8')
         url=base64.b64decode(url).decode("utf8","ignore")
         path=base64.b64decode(path).decode("utf8","ignore")
         print(url)
