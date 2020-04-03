@@ -172,12 +172,15 @@ function AddMedia(data){
     //下载m3u8
     $('#medialist #downm3u8').off().on('click',function(){ 
         var down_url = $(this).parents().find('.url a').attr('href');
-    var path = $("input#path").val(); 
+        var path = $("input#path").val(); 
+        console.log($.base64.encode(down_url));
+        console.log($.base64.encode(path));
         // chrome.tabs.create({ url: '/m3u8.html?m3u8_url='+url });
         $.ajax({
             url:"http://"+localStorage['m3u8DownloadServer_ip']+":"+localStorage['m3u8DownloadServer_port']+"/cgi-bin/"+localStorage['m3u8DownloadServer_file'],
             type:"post",
-            data:{down_url:down_url,path:path},
+            async:true,
+            data:{down_url:$.base64.encode(down_url),path:$.base64.encode(path)},
         });
         return false;
     });
